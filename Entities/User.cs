@@ -8,7 +8,7 @@ public class User
     public required string UserName { get; set; }
     public string PasswordHash { get; set; }
 
-    public List<Blog> UserBlogs { get; set; }
-    public List<SavedPosts> SavedPosts { get; set; }
+    public virtual List<Blog> UserBlogs { get; set; }
+    public virtual List<SavedPosts> SavedPosts { get; set; }
 
 }

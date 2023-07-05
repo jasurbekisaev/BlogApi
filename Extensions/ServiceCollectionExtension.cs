@@ -1,7 +1,9 @@
-﻿using BlogApi.Managers;
+﻿using BlogApi.Context;
+using BlogApi.Managers;
 using BlogApi.Options;
 using BlogApi.Provider;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 
 namespace BlogApi.Extensions;
@@ -32,7 +34,7 @@ public static class ServiceCollectionExtension
             });
     }
 
-    public static void AddIdentity(this IServiceCollection services, IConfiguration configuration)
+    public static void AddIdentityServices(this IServiceCollection services, IConfiguration configuration)
     {
         services.AddJwt(configuration);
         services.AddScoped<JwtTokenManager>();
@@ -41,12 +43,12 @@ public static class ServiceCollectionExtension
         services.AddScoped<UserProvider>();
     }
 
-    //public static void MigrateBlogDb(this WebApplication app)
-    //{
-    //    if (app.Services.GetService<BlogdbContext>() != null)
-    //    {
-    //        var identityDb = app.Services.GetRequiredService<BlogdbContext>();
-    //        identityDb.Database.Migrate();
-    //    }
-    //}
+    public static void MigrateBlogDb(this WebApplication app)
+    {
+        if (app.Services.GetService<BlogdbContext>() != null)
+        {
+            var identityDb = app.Services.GetRequiredService<BlogdbContext>();
+            identityDb.Database.Migrate();
+        }
+    }
 }
