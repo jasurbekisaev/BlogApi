@@ -12,11 +12,11 @@ namespace BlogApi.Context
             optionsBuilder.UseLazyLoadingProxies();
         }
 
-        DbSet<Blog> Blogs { get; set; }
-        DbSet<Like> Likes { get; set; }
-        DbSet<SavedPosts> SavedPosts { get; set; }
-        DbSet<Post> Posts { get; set; }
-        DbSet<User> Users { get; set; }
+        public DbSet<Blog> Blogs { get; set; }
+        public DbSet<Like> Likes { get; set; }
+        public DbSet<SavedPosts> SavedPosts { get; set; }
+        public DbSet<Post> Posts { get; set; }
+        public DbSet<User> Users { get; set; }
 
     }
 }
