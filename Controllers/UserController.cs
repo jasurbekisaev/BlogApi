@@ -1,6 +1,8 @@
 ﻿using BlogApi.DtoModels.UserDtoModel;
 using BlogApi.Managers;
 using BlogApi.Provider;
+using BlogApi.Validators;
+using FluentValidation.Results;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -24,9 +26,14 @@ namespace BlogApi.Controllers
         [HttpPost("/users/register")]
         public async Task<IActionResult> SignUp([FromBody] CreateUserDto model)
         {
-            if (!ModelState.IsValid)
+            var validator = new UserValidator();
+            ValidationResult result = validator.Validate(model);
+            if (!result.IsValid)
             {
-                return BadRequest(ModelState);
+                foreach (var error in result.Errors)
+                {
+                    return BadRequest(error.ErrorMessage);
+                }
             }
 
             var user = await _usermanager.Register(model);
