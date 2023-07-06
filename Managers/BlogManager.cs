@@ -14,7 +14,7 @@ public class BlogManager
         _context = context;
     }
 
-    public async Task<List<BlogDto>> GetBlogsByUserId()
+    public async Task<List<BlogDto>> GetBlogs()
     {
         var blogs = await _context.Blogs.Include(b => b.BlogPosts).ToListAsync();
 
@@ -38,7 +38,7 @@ public class BlogManager
         {
             throw new Exception("There is user with this username");
         }
-        var blogs = user.UserBlogs;
+        var blogs = await _context.Blogs.Where(b => b.UserId == user.UserId).ToListAsync();
 
         if (blogs == null)
         {
@@ -50,7 +50,7 @@ public class BlogManager
 
     public async Task<List<BlogDto>> GetBlogsByUserId(Guid Id)
     {
-        var blogs = await _context.Blogs.Where(b => b.UserId == Id).Include(b => b.BlogPosts).ToListAsync();
+        var blogs = await _context.Blogs.Where(b => b.UserId == Id).ToListAsync();
         return ParseList(blogs);
     }
 

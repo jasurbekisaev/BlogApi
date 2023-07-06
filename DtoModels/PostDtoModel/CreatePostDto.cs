@@ -9,5 +9,5 @@ public class CreatePostDto
     public DateTime CreatedTime { get; set; } = DateTime.Now;
 
     public Guid BlogId { get; set; }
-    public virtual Blog Blog { get; set; }
+    public Blog Blog { get; set; }
 }

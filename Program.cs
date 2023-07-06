@@ -49,6 +49,8 @@ var app = builder.Build();
 app.UseSwagger();
 app.UseSwaggerUI();
 
+app.UseMigrateBlogDb();
+
 app.UseHttpsRedirection();
 
 app.UseAuthorization();

@@ -18,5 +18,35 @@ namespace BlogApi.Context
         public DbSet<Post> Posts { get; set; }
         public DbSet<User> Users { get; set; }
 
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<User>()
+                .HasKey(u => u.UserId);
+            modelBuilder.Entity<User>()
+                .HasIndex(u => u.UserName);
+            modelBuilder.Entity<User>()
+                .HasMany(u => u.UserBlogs)
+                .WithOne(u => u.User)
+                .HasForeignKey(b => b.UserId);
+            modelBuilder.Entity<Blog>()
+                .HasKey(b => b.BlogId);
+            modelBuilder.Entity<Blog>()
+                .HasMany(b => b.BlogPosts)
+                .WithOne(p => p.Blog)
+                .HasForeignKey(p => p.BlogId);
+            modelBuilder.Entity<User>()
+                .HasMany(u => u.SavedPosts)
+                .WithOne(s => s.User)
+                .HasForeignKey(s => s.UserId);
+            modelBuilder.Entity<Post>()
+                .HasMany(p => p.PostLikes)
+                .WithOne(l => l.Post)
+                .HasForeignKey(l => l.PostId);
+            modelBuilder.Entity<Post>()
+                .HasMany(p => p.SavedPosts)
+                .WithOne(l => l.Post)
+                .HasForeignKey(l => l.PostId);
+        }
     }
 }

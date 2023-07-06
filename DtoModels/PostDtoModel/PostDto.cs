@@ -9,8 +9,8 @@ public class PostDto
     public required string Text { get; set; }
     public DateTime CreatedTime { get; set; } = DateTime.Now;
     public Guid BlogId { get; set; }
-    public virtual Blog Blog { get; set; }
-    public virtual List<Like>? PostLikes { get; set; }
-    public virtual List<SavedPosts>? SavedPosts { get; set; }
+    public Blog Blog { get; set; }
+    public List<Like>? PostLikes { get; set; }
+    public List<SavedPosts>? SavedPosts { get; set; }
 
 }

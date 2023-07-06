@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace BlogApi.Controllers
 {
+    [Route("api/[controller]")]
+    [ApiController]
     public class UserController : Controller
     {
         private readonly UserManager _usermanager;
@@ -19,13 +21,9 @@ namespace BlogApi.Controllers
             _userProvider = userProvider;
         }
 
-        [HttpPost("signUp")]
+        [HttpPost("/users/register")]
         public async Task<IActionResult> SignUp([FromBody] CreateUserDto model)
         {
-            if (model == null)
-            {
-                return BadRequest(ModelState);
-            }
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
@@ -36,7 +34,7 @@ namespace BlogApi.Controllers
             return Ok(user);
         }
 
-        [HttpPost("login")]
+        [HttpPost("/users/id/user")]
         public async Task<IActionResult> Login([FromBody] LoginUserDto model)
         {
             if (!ModelState.IsValid)
@@ -50,7 +48,7 @@ namespace BlogApi.Controllers
         }
 
 
-        [HttpGet("profile")]
+        [HttpGet("/users/user/profile")]
         [Authorize]
         public async Task<IActionResult> Profile()
         {
@@ -64,7 +62,7 @@ namespace BlogApi.Controllers
             return Ok(new UserDto(user));
 
         }
-        [HttpPost("GetUser")]
+        [HttpPost($"/users/username/user")]
         public async Task<IActionResult> GetUser(string userName)
         {
             var user = await _usermanager.GetUser(userName);

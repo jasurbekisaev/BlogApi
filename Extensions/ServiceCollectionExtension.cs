@@ -43,7 +43,7 @@ public static class ServiceCollectionExtension
         services.AddScoped<UserProvider>();
     }
 
-    public static void MigrateBlogDb(this WebApplication app)
+    public static void UseMigrateBlogDb(this WebApplication app)
     {
         if (app.Services.GetService<BlogdbContext>() != null)
         {

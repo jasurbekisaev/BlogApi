@@ -19,7 +19,6 @@ public class UserManager
         _jwtTokenManager = jwtTokenManager;
     }
 
-
     public async Task<User> Register(CreateUserDto model)
     {
         if (await _context.Users.AnyAsync(u => u.UserName == model.Username))
