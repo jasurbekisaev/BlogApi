@@ -12,6 +12,7 @@ public class UserManager
     private ILogger<UserManager> _logger;
     private readonly JwtTokenManager _jwtTokenManager;
 
+
     public UserManager(BlogdbContext context, ILogger<UserManager> logger, JwtTokenManager jwtTokenManager)
     {
         _context = context;
@@ -66,6 +67,16 @@ public class UserManager
     public async Task<User?> GetUser(Guid id)
     {
         return await _context.Users.FirstOrDefaultAsync(u => u.UserId == id);
+    }
+
+    public async Task<List<User?>> GetAllUsers()
+    {
+        var users = await _context.Users.ToListAsync();
+        if (users == null)
+        {
+            throw new Exception("There is no user");
+        }
+        return users;
     }
 
 }

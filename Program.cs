@@ -1,3 +1,4 @@
+using AutoMapper;
 using BlogApi.Context;
 using BlogApi.Extensions;
 using BlogApi.Managers;
@@ -40,9 +41,13 @@ builder.Services.AddDbContext<BlogdbContext>(options =>
 {
     options.UseNpgsql(builder.Configuration.GetConnectionString("IdentityDb"));
 });
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddIdentityServices(builder.Configuration);
 builder.Services.AddScoped<BlogManager>();
 builder.Services.AddScoped<PostManager>();
+builder.Services.AddScoped<CommentManager>();
+builder.Services.AddScoped<IMapper, Mapper>();
+
 var app = builder.Build();
 
 

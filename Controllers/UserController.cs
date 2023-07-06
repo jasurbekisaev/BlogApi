@@ -23,7 +23,17 @@ namespace BlogApi.Controllers
             _userProvider = userProvider;
         }
 
-        [HttpPost("/users/register")]
+        [HttpGet("AllUsers")]
+        public async Task<IActionResult> GetAllUsers()
+        {
+            var users = await _usermanager.GetAllUsers();
+            if (users == null)
+            {
+                return NotFound();
+            }
+            return View(users);
+        }
+        [HttpPost("register")]
         public async Task<IActionResult> SignUp([FromBody] CreateUserDto model)
         {
             var validator = new UserValidator();
@@ -41,7 +51,7 @@ namespace BlogApi.Controllers
             return Ok(user);
         }
 
-        [HttpPost("/users/id/user")]
+        [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] LoginUserDto model)
         {
             if (!ModelState.IsValid)
@@ -55,7 +65,7 @@ namespace BlogApi.Controllers
         }
 
 
-        [HttpGet("/users/user/profile")]
+        [HttpGet]
         [Authorize]
         public async Task<IActionResult> Profile()
         {
@@ -69,7 +79,7 @@ namespace BlogApi.Controllers
             return Ok(new UserDto(user));
 
         }
-        [HttpPost($"/users/username/user")]
+        [HttpGet("{userName}")]
         public async Task<IActionResult> GetUser(string userName)
         {
             var user = await _usermanager.GetUser(userName);

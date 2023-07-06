@@ -17,6 +17,8 @@ namespace BlogApi.Context
         public DbSet<SavedPosts> SavedPosts { get; set; }
         public DbSet<Post> Posts { get; set; }
         public DbSet<User> Users { get; set; }
+        public DbSet<Comment> Comments { get; set; }
+
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -47,6 +49,10 @@ namespace BlogApi.Context
                 .HasMany(p => p.SavedPosts)
                 .WithOne(l => l.Post)
                 .HasForeignKey(l => l.PostId);
+            modelBuilder.Entity<Post>()
+                .HasMany(p => p.PostComments)
+                .WithOne(c => c.Post)
+                .HasForeignKey(c => c.PostId);
         }
     }
 }

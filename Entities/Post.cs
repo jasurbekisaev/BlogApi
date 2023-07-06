@@ -11,5 +11,6 @@ public class Post
     public virtual Blog Blog { get; set; }
     public virtual List<Like>? PostLikes { get; set; }
     public virtual List<SavedPosts>? SavedPosts { get; set; }
+    public virtual List<Comment>? PostComments { get; set; }
 
 }
