@@ -1,6 +1,4 @@
-﻿using BlogApi.Entities;
-
-namespace BlogApi.DtoModels.PostDtoModel;
+﻿namespace BlogApi.DtoModels.PostDtoModel;
 
 public class CreatePostDto
 {
@@ -9,5 +7,4 @@ public class CreatePostDto
     public DateTime CreatedTime { get; set; } = DateTime.Now;
 
     public Guid BlogId { get; set; }
-    public Blog Blog { get; set; }
 }

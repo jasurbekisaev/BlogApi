@@ -65,7 +65,8 @@ public class PostManager
             CreatedTime = model.CreatedTime,
             BlogId = model.BlogId
         };
-        _context.Posts.Add(post);
+
+        await _context.Posts.AddAsync(post);
         await _context.SaveChangesAsync();
         return ParseToPost(post);
     }
