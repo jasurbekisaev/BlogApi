@@ -14,28 +14,28 @@ public class BlogController : ControllerBase
         _manager = manager;
     }
 
-    [HttpGet("/blogs")]
+    [HttpGet]
     public async Task<IActionResult> GetAllBlogs()
     {
         var blogs = await _manager.GetBlogs();
         return Ok(blogs);
     }
 
-    [HttpGet("{UserId}")]
+    [HttpGet("GetBlogsByUserId/{UserId}")]
     public async Task<IActionResult> GetBlogsOfUser(Guid UserId)
     {
         var blogs = await _manager.GetBlogsByUserId(UserId);
         return Ok(blogs);
     }
 
-    [HttpGet("{Username}")]
+    [HttpGet("GetBlogsByUsername/{Username}")]
     public async Task<IActionResult> GetAllBlogsByUsername(string Username)
     {
         var blogs = await _manager.GetBlogsByUsername(Username);
         return Ok(blogs);
     }
 
-    [HttpGet("{blogId}")]
+    [HttpGet("GetBlog/{blogId}")]
     public async Task<IActionResult> GetBlogById(Guid blogId)
     {
         var blog = await _manager.GetBlogByBlogId(blogId);

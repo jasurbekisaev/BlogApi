@@ -9,6 +9,8 @@ namespace BlogApi.FileHelper
         public MappingProfile()
         {
             CreateMap<Comment, CommentDto>();
+            CreateMap<CreateCommentDto, Comment>();
+            CreateMap<Comment, CreateCommentDto>();
         }
     }
 }

@@ -23,7 +23,7 @@ namespace BlogApi.Controllers
             _userProvider = userProvider;
         }
 
-        [HttpGet("AllUsers")]
+        [HttpGet("GetAllUsers")]
         public async Task<IActionResult> GetAllUsers()
         {
             var users = await _usermanager.GetAllUsers();
@@ -31,7 +31,7 @@ namespace BlogApi.Controllers
             {
                 return NotFound();
             }
-            return View(users);
+            return Ok(users);
         }
         [HttpPost("register")]
         public async Task<IActionResult> SignUp([FromBody] CreateUserDto model)

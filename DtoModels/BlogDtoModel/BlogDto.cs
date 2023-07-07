@@ -9,7 +9,6 @@ public class BlogDto
     public required string Tag { get; set; }
     public DateTime CreatedTime { get; set; }
     public Guid UserId { get; set; }
-    public User User { get; set; }
     public List<Post>? BlogPosts { get; set; }
 
 }

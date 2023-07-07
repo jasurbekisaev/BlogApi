@@ -71,7 +71,7 @@ public class UserManager
 
     public async Task<List<User?>> GetAllUsers()
     {
-        var users = await _context.Users.ToListAsync();
+        var users = await _context.Users.Include(u => u.UserBlogs).ToListAsync();
         if (users == null)
         {
             throw new Exception("There is no user");

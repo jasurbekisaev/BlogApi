@@ -22,4 +22,17 @@ public class CommentManager
         return comments;
     }
 
+    public async Task<Comment> CreateComment(Comment model)
+    {
+
+        var post = await _context.Posts.Where(u => u.PostId == model.PostId).FirstOrDefaultAsync();
+        if (post != null)
+        {
+            throw new Exception("there is no post with this Id");
+        }
+
+        _context.Comments.Add(model);
+        return model;
+    }
+
 }

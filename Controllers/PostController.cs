@@ -22,7 +22,7 @@ namespace BlogApi.Controllers
             return Ok(posts);
         }
 
-        [HttpGet("BlogId")]
+        [HttpGet("GetPostsOfBlog/{BlogId}")]
         public async Task<IActionResult> GetPostsOfBlog(Guid BlogId)
         {
             var posts = await _manager.GetPostsOfBlog(BlogId);
@@ -30,7 +30,7 @@ namespace BlogApi.Controllers
             return Ok(posts);
         }
 
-        [HttpGet("UserId")]
+        [HttpGet("GetPostsOfUser/{UserId}")]
         public async Task<IActionResult> GetPostsOfUser(Guid UserId)
         {
             var posts = await _manager.GetPostsOfUser(UserId);
