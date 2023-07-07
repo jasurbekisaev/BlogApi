@@ -22,7 +22,7 @@ namespace BlogApi.Controllers
         [HttpGet("PostId")]
         public async Task<IActionResult> GetCommentsByPostId(Guid PostId)
         {
-            var comments = _mapper.Map<List<CommentDto>>(_manager.GetCommentsByBlogId(PostId));
+            var comments = await _manager.GetCommentsByPostId(PostId);
 
             return Ok(comments);
         }

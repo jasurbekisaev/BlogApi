@@ -11,6 +11,7 @@ namespace BlogApi.FileHelper
             CreateMap<Comment, CommentDto>();
             CreateMap<CreateCommentDto, Comment>();
             CreateMap<Comment, CreateCommentDto>();
+            CreateMap<CommentDto, Comment>();
         }
     }
 }
