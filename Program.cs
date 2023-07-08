@@ -52,6 +52,7 @@ builder.Services.AddIdentityServices(builder.Configuration);
 builder.Services.AddScoped<BlogManager>();
 builder.Services.AddScoped<PostManager>();
 builder.Services.AddScoped<CommentManager>();
+builder.Services.AddScoped<SavedPostManager>();
 builder.Services.AddScoped<IMapper, Mapper>();
 
 var app = builder.Build();

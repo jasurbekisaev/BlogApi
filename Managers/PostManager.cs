@@ -116,7 +116,6 @@ public class PostManager
             Text = post.Text,
             CreatedTime = post.CreatedTime,
             PostLikes = post.PostLikes,
-            SavedPosts = post.SavedPosts,
             PostTitle = post.PostTitle,
         };
         return postModel;

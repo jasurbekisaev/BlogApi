@@ -72,8 +72,9 @@ public class CommentManager
     public async Task<CommentDto> UpdateComment(Guid CommentId, string text)
     {
         var comment = await _context.Comments.Where(c => c.Id == CommentId).FirstOrDefaultAsync();
+        comment.Text = text;
         var commentDto = _mapper.Map<CommentDto>(comment);
-        commentDto.Text = text;
+
         await _context.SaveChangesAsync();
         return commentDto;
     }

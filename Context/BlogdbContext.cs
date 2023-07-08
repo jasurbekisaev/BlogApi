@@ -37,10 +37,6 @@ namespace BlogApi.Context
                 .HasMany(b => b.BlogPosts)
                 .WithOne(p => p.Blog)
                 .HasForeignKey(p => p.BlogId);
-            modelBuilder.Entity<User>()
-                .HasMany(u => u.SavedPosts)
-                .WithOne(s => s.User)
-                .HasForeignKey(s => s.UserId);
             modelBuilder.Entity<Post>()
                 .HasMany(p => p.PostLikes)
                 .WithOne(l => l.Post)

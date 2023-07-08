@@ -3,6 +3,7 @@ using System;
 using BlogApi.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace BlogApi.Migrations
 {
     [DbContext(typeof(BlogdbContext))]
-    partial class BlogdbContextModelSnapshot : ModelSnapshot
+    [Migration("20230707150343_CollectSavePostsDb")]
+    partial class CollectSavePostsDb
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -24,6 +27,38 @@ namespace BlogApi.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
+
+            modelBuilder.Entity("BlogApi.DtoModels.PostDtoModel.PostDto", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid?>("BlogId")
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime?>("CreatedTime")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<string>("PostTitle")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Text")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<Guid?>("UserId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BlogId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("PostDto");
+                });
 
             modelBuilder.Entity("BlogApi.Entities.Blog", b =>
                 {
@@ -83,6 +118,9 @@ namespace BlogApi.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
+                    b.Property<Guid?>("PostDtoId")
+                        .HasColumnType("uuid");
+
                     b.Property<Guid>("PostId")
                         .HasColumnType("uuid");
 
@@ -90,6 +128,8 @@ namespace BlogApi.Migrations
                         .HasColumnType("uuid");
 
                     b.HasKey("LikeId");
+
+                    b.HasIndex("PostDtoId");
 
                     b.HasIndex("PostId");
 
@@ -174,6 +214,19 @@ namespace BlogApi.Migrations
                     b.ToTable("Users");
                 });
 
+            modelBuilder.Entity("BlogApi.DtoModels.PostDtoModel.PostDto", b =>
+                {
+                    b.HasOne("BlogApi.Entities.Blog", "Blog")
+                        .WithMany()
+                        .HasForeignKey("BlogId");
+
+                    b.HasOne("BlogApi.Entities.User", null)
+                        .WithMany("SavedPosts")
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("Blog");
+                });
+
             modelBuilder.Entity("BlogApi.Entities.Blog", b =>
                 {
                     b.HasOne("BlogApi.Entities.User", "User")
@@ -206,6 +259,10 @@ namespace BlogApi.Migrations
 
             modelBuilder.Entity("BlogApi.Entities.Like", b =>
                 {
+                    b.HasOne("BlogApi.DtoModels.PostDtoModel.PostDto", null)
+                        .WithMany("PostLikes")
+                        .HasForeignKey("PostDtoId");
+
                     b.HasOne("BlogApi.Entities.Post", "Post")
                         .WithMany("PostLikes")
                         .HasForeignKey("PostId")
@@ -253,6 +310,11 @@ namespace BlogApi.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("BlogApi.DtoModels.PostDtoModel.PostDto", b =>
+                {
+                    b.Navigation("PostLikes");
+                });
+
             modelBuilder.Entity("BlogApi.Entities.Blog", b =>
                 {
                     b.Navigation("BlogPosts");
@@ -269,6 +331,8 @@ namespace BlogApi.Migrations
 
             modelBuilder.Entity("BlogApi.Entities.User", b =>
                 {
+                    b.Navigation("SavedPosts");
+
                     b.Navigation("UserBlogs");
                 });
 #pragma warning restore 612, 618

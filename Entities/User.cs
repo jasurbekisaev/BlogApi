@@ -7,8 +7,6 @@ public class User
     public string? Surname { get; set; }
     public required string UserName { get; set; }
     public string PasswordHash { get; set; }
-
     public virtual List<Blog> UserBlogs { get; set; }
-    public virtual List<SavedPosts> SavedPosts { get; set; }
 
 }
